@@ -46,7 +46,7 @@ export default function Hero({
             alt="FashunSënze editorial — pieces worth wearing"
             fill
             priority
-            className="object-cover"
+            className="animate-image-drift object-cover"
             sizes="(min-width: 1024px) 50vw, 100vw"
           />
           <div className="absolute bottom-5 left-5 rounded-xl bg-black/40 px-4 py-3 text-xs text-white backdrop-blur-sm">

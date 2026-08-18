@@ -1,12 +1,10 @@
-import { db } from "@/db";
-import { testimonials } from "@/db/schema";
-import { desc } from "drizzle-orm";
+import { listAllTestimonialsAdmin } from "@/lib/data";
 import TestimonialsManager from "@/components/admin/TestimonialsManager";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminTestimonialsPage() {
-  const rows = await db.select().from(testimonials).orderBy(desc(testimonials.createdAt));
+  const rows = await listAllTestimonialsAdmin();
 
   return (
     <div>

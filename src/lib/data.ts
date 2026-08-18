@@ -101,8 +101,13 @@ export async function getCategoryCounts() {
 // Admin data access
 // ---------------------------------------------------------------------------
 export async function listAllProductsAdmin() {
-  const rows = await db.select().from(products).orderBy(desc(products.updatedAt));
-  return attachVariants(rows);
+  return withDbFallback(
+    async () => {
+      const rows = await db.select().from(products).orderBy(desc(products.updatedAt));
+      return attachVariants(rows);
+    },
+    []
+  );
 }
 
 export async function getProductByIdAdmin(id: number) {
@@ -113,23 +118,34 @@ export async function getProductByIdAdmin(id: number) {
 }
 
 export async function listOrdersAdmin(filters?: { status?: string; search?: string }) {
-  const conditions = [];
-  if (filters?.status && filters.status !== "all") conditions.push(eq(orders.orderStatus, filters.status));
-  if (filters?.search) {
-    conditions.push(
-      or(
-        ilike(orders.orderNumber, `%${filters.search}%`),
-        ilike(orders.customerName, `%${filters.search}%`),
-        ilike(orders.phone, `%${filters.search}%`)
-      )!
-    );
-  }
-  const rows = await db
-    .select()
-    .from(orders)
-    .where(conditions.length ? and(...conditions) : undefined)
-    .orderBy(desc(orders.createdAt));
-  return rows;
+  return withDbFallback(
+    async () => {
+      const conditions = [];
+      if (filters?.status && filters.status !== "all") conditions.push(eq(orders.orderStatus, filters.status));
+      if (filters?.search) {
+        conditions.push(
+          or(
+            ilike(orders.orderNumber, `%${filters.search}%`),
+            ilike(orders.customerName, `%${filters.search}%`),
+            ilike(orders.phone, `%${filters.search}%`)
+          )!
+        );
+      }
+      return db
+        .select()
+        .from(orders)
+        .where(conditions.length ? and(...conditions) : undefined)
+        .orderBy(desc(orders.createdAt));
+    },
+    []
+  );
+}
+
+export async function listAllTestimonialsAdmin() {
+  return withDbFallback(
+    async () => db.select().from(testimonials).orderBy(desc(testimonials.createdAt)),
+    []
+  );
 }
 
 export async function getOrderWithItems(orderId: number) {
