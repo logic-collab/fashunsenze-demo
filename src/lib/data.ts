@@ -147,9 +147,10 @@ export async function getOrderByNumber(orderNumber: string) {
 }
 
 export async function getDashboardStats() {
-  const allOrders = await db.select().from(orders);
-  const allProducts = await db.select().from(products);
-  const variants = await db.select().from(productVariants);
+  return withDbFallback(async () => {
+    const allOrders = await db.select().from(orders);
+    const allProducts = await db.select().from(products);
+    const variants = await db.select().from(productVariants);
 
   const revenue = allOrders
     .filter((o) => o.paymentStatus === "paid")
@@ -170,15 +171,26 @@ export async function getDashboardStats() {
     .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
     .slice(0, 5);
 
-  return {
-    revenue,
-    totalOrders: allOrders.length,
-    pendingOrders,
-    totalProducts: allProducts.length,
-    outOfStockCount: outOfStockProducts.length,
-    lowStockCount: lowStockProducts.length,
-    recentOrders,
-    outOfStockProducts,
-    lowStockProducts,
-  };
+    return {
+      revenue,
+      totalOrders: allOrders.length,
+      pendingOrders,
+      totalProducts: allProducts.length,
+      outOfStockCount: outOfStockProducts.length,
+      lowStockCount: lowStockProducts.length,
+      recentOrders,
+      outOfStockProducts,
+      lowStockProducts,
+    };
+  }, {
+    revenue: 0,
+    totalOrders: 0,
+    pendingOrders: 0,
+    totalProducts: 0,
+    outOfStockCount: 0,
+    lowStockCount: 0,
+    recentOrders: [],
+    outOfStockProducts: [],
+    lowStockProducts: [],
+  });
 }
