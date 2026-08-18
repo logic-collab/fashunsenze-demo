@@ -28,7 +28,7 @@ export default function ProductRail({
           </Link>
         )}
       </div>
-      <div className="-mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+      <div className="product-rail-grid -mx-6 flex snap-x gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 lg:grid-cols-4">
         {products.map((product) => (
           <div key={product.id} className="w-[70vw] shrink-0 snap-start sm:w-auto">
             <ProductCard product={product} />

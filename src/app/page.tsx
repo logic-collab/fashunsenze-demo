@@ -30,44 +30,46 @@ export default async function HomePage() {
   return (
     <>
       <Hero title={settings.heroTitle} subtitle={settings.heroSubtitle} whatsappNumber={settings.whatsappNumber} />
-      <TrustStrip />
+      <div className="home-flow">
+        <TrustStrip />
 
-      <ProductRail
-        title="New Arrivals"
-        subtitle="The pieces just added to the collection."
-        products={newArrivals.slice(0, 8)}
-        viewAllHref="/shop?filter=new"
-      />
+        <ProductRail
+          title="New Arrivals"
+          subtitle="The pieces just added to the collection."
+          products={newArrivals.slice(0, 8)}
+          viewAllHref="/shop?filter=new"
+        />
 
-      <CategorySection counts={counts} />
+        <CategorySection counts={counts} />
 
-      <PersonalShopperSection message={settings.personalShopperMessage} whatsappNumber={settings.whatsappNumber} />
+        <PersonalShopperSection message={settings.personalShopperMessage} whatsappNumber={settings.whatsappNumber} />
 
-      <EditorialMoment
-        image="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
-        text="Made for the way you dress now."
-      />
+        <EditorialMoment
+          image="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80"
+          text="Made for the way you dress now."
+        />
 
-      <ProductRail
-        title="Featured Edit"
-        subtitle="Pieces our stylists keep reaching for."
-        products={featured.slice(0, 8)}
-        viewAllHref="/shop"
-      />
+        <ProductRail
+          title="Featured Edit"
+          subtitle="Pieces our stylists keep reaching for."
+          products={featured.slice(0, 8)}
+          viewAllHref="/shop"
+        />
 
-      <ShopWithUs />
+        <ShopWithUs />
 
-      <EditorialMoment
-        image="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80"
-        text="From everyday pieces to something worth dressing up for."
-        align="right"
-      />
+        <EditorialMoment
+          image="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=80"
+          text="From everyday pieces to something worth dressing up for."
+          align="right"
+        />
 
-      <InstagramBridge instagramUrl={settings.instagramUrl} />
+        <InstagramBridge instagramUrl={settings.instagramUrl} />
 
-      <TestimonialsSection testimonials={testimonials} />
+        <TestimonialsSection testimonials={testimonials} />
 
-      <FinalCta whatsappNumber={settings.whatsappNumber} />
+        <FinalCta whatsappNumber={settings.whatsappNumber} />
+      </div>
     </>
   );
 }
