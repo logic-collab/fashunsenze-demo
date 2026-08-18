@@ -11,14 +11,18 @@ const globalForDb = globalThis as typeof globalThis & {
   __arenaNextJsPostgresqlPool?: Pool;
 };
 
-export const pool =
-  globalForDb.__arenaNextJsPostgresqlPool ??
-  new Pool({
-    connectionString: databaseUrl ?? "postgresql://localhost:5432/fashunsenze_demo",
-  });
+export const pool = databaseUrl
+  ? globalForDb.__arenaNextJsPostgresqlPool ?? new Pool({ connectionString: databaseUrl })
+  : (undefined as unknown as Pool);
 
-if (process.env.NODE_ENV !== "production") {
+if (databaseUrl && process.env.NODE_ENV !== "production") {
   globalForDb.__arenaNextJsPostgresqlPool = pool;
 }
 
-export const db = drizzle(pool);
+const unavailableDb = new Proxy({} as ReturnType<typeof drizzle>, {
+  get() {
+    throw new Error("DATABASE_URL is required");
+  },
+});
+
+export const db = databaseUrl ? drizzle(pool) : unavailableDb;
