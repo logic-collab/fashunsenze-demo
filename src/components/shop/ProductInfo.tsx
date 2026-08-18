@@ -90,7 +90,7 @@ export default function ProductInfo({
                   key={size}
                   disabled={disabled}
                   onClick={() => setSelectedSize(size)}
-                  className={`relative min-w-[3rem] rounded-full border px-4 py-2 text-sm font-medium transition ${
+                  className={`relative min-w-[3rem] rounded-full border px-4 py-2 text-sm font-medium transition duration-300 ${
                     disabled
                       ? "cursor-not-allowed border-stone-200 text-stone-300 line-through"
                       : selectedSize === size
@@ -112,7 +112,7 @@ export default function ProductInfo({
           <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="p-2" aria-label="Decrease quantity">
             <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="min-w-[2rem] text-center text-sm">{quantity}</span>
+          <span key={quantity} className="animate-value-pop min-w-[2rem] text-center text-sm">{quantity}</span>
           <button
             onClick={() => setQuantity((q) => Math.min(stock || 1, q + 1))}
             className="p-2"
@@ -129,7 +129,9 @@ export default function ProductInfo({
           onClick={() => handleAdd(false)}
           className="flex-1 rounded-full bg-[var(--color-ink)] py-3.5 text-sm font-semibold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {added ? "Added ✓" : soldOut ? "Sold Out" : "Add to Cart"}
+          <span key={added ? "added" : soldOut ? "sold-out" : "add"} className="animate-value-pop">
+            {added ? "Added ✓" : soldOut ? "Sold Out" : "Add to Cart"}
+          </span>
         </button>
         <button
           disabled={soldOut}

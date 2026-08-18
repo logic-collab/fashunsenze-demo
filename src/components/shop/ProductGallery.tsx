@@ -20,7 +20,15 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
     <div>
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-xl bg-stone-100 sm:aspect-[4/5]">
         <button className="absolute inset-0 h-full w-full" onClick={() => setLightbox(true)} aria-label="Open full screen image">
-          <Image src={gallery[active]} alt={name} fill priority className="object-cover" sizes="(min-width: 1024px) 45vw, 100vw" />
+          <Image
+            key={gallery[active]}
+            src={gallery[active]}
+            alt={name}
+            fill
+            priority
+            className="animate-gallery-image object-cover"
+            sizes="(min-width: 1024px) 45vw, 100vw"
+          />
         </button>
         {gallery.length > 1 && (
           <>
@@ -53,7 +61,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
             <button
               key={img + i}
               onClick={() => setActive(i)}
-              className={`relative h-20 w-16 overflow-hidden rounded-lg border-2 ${
+              className={`relative h-20 w-16 overflow-hidden rounded-lg border-2 transition-transform duration-300 hover:scale-105 ${
                 i === active ? "border-[var(--color-ink)]" : "border-transparent"
               }`}
             >
@@ -64,7 +72,7 @@ export default function ProductGallery({ images, name }: { images: string[]; nam
       )}
 
       {lightbox && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/90 p-6">
+        <div className="animate-lightbox fixed inset-0 z-[70] flex items-center justify-center bg-black/90 p-6">
           <button onClick={() => setLightbox(false)} aria-label="Close" className="absolute top-6 right-6 text-white">
             <X className="h-7 w-7" />
           </button>

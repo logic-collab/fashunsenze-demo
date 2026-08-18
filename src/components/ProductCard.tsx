@@ -11,6 +11,7 @@ import { Heart } from "./icons";
 
 export default function ProductCard({ product }: { product: ProductWithVariants }) {
   const [hovered, setHovered] = useState(false);
+  const [quickAdded, setQuickAdded] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
   const toggleWishlist = useWishlistStore((s) => s.toggle);
   const isWishlisted = useWishlistStore((s) => s.isWishlisted(product.id));
@@ -39,6 +40,8 @@ export default function ProductCard({ product }: { product: ProductWithVariants 
         quantity: 1,
         maxStock: singleVariant.stock,
       });
+      setQuickAdded(true);
+      window.setTimeout(() => setQuickAdded(false), 1400);
     } else {
       window.location.href = `/product/${product.slug}`;
     }
@@ -116,7 +119,7 @@ export default function ProductCard({ product }: { product: ProductWithVariants 
               }}
               className="absolute inset-x-3 bottom-3 translate-y-2 rounded-full bg-[var(--color-ink)] py-2.5 text-xs font-semibold tracking-wide text-[var(--color-ivory)] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
             >
-              {singleVariant ? "Quick Add" : "Select Options"}
+              {quickAdded ? "Added ✓" : singleVariant ? "Quick Add" : "Select Options"}
             </button>
           )}
         </div>

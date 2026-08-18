@@ -127,7 +127,7 @@ export default function ShopExperience({ products }: { products: ProductWithVari
 
       <p className="mb-4 text-xs text-stone-500">{filtered.length} pieces</p>
 
-      <ProductGrid products={filtered} />
+      <ProductGrid key={filtered.map((product) => product.id).join(",")} products={filtered} />
 
       {/* Filters bottom sheet / drawer */}
       <div

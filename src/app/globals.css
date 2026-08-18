@@ -111,6 +111,39 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
+@keyframes gallery-image {
+  from { opacity: 0.35; transform: scale(1.015); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-gallery-image {
+  animation: gallery-image 0.45s ease-out both;
+}
+
+@keyframes lightbox {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-lightbox {
+  animation: lightbox 0.25s ease-out both;
+}
+
+@keyframes value-pop {
+  0% { opacity: 0.35; transform: translateY(3px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-value-pop {
+  display: inline-block;
+  animation: value-pop 0.25s ease-out both;
+}
+
+@keyframes cart-item {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-cart-item {
+  animation: cart-item 0.35s ease-out both;
+}
+
 .home-flow > * {
   animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

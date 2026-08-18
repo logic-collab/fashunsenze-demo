@@ -65,7 +65,7 @@ export default function CartDrawer({ whatsappNumber }: { whatsappNumber: string 
             <div className="flex-1 overflow-y-auto px-6 py-4">
               <ul className="flex flex-col gap-5">
                 {items.map((item) => (
-                  <li key={item.key} className="flex gap-4">
+                  <li key={item.key} className="animate-cart-item flex gap-4">
                     <div className="relative h-24 w-20 shrink-0 overflow-hidden rounded-lg bg-stone-100">
                       {item.image ? (
                         <Image src={item.image} alt={item.name} fill className="object-cover" sizes="80px" />
@@ -119,7 +119,7 @@ export default function CartDrawer({ whatsappNumber }: { whatsappNumber: string 
             <div className="border-t border-black/10 px-6 py-5">
               <div className="mb-1 flex items-center justify-between text-sm text-stone-600">
                 <span>Subtotal</span>
-                <span className="font-semibold text-[var(--color-ink)]">{formatMoney(subtotal)}</span>
+                <span key={subtotal} className="animate-value-pop font-semibold text-[var(--color-ink)]">{formatMoney(subtotal)}</span>
               </div>
               <p className="mb-4 text-xs text-stone-500">Delivery calculated at checkout.</p>
               <Link
