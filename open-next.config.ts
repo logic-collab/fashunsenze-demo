@@ -1,3 +1,11 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
 
-export default defineCloudflareConfig();
+const cloudflareConfig = defineCloudflareConfig();
+
+export default {
+	...cloudflareConfig,
+	cloudflare: {
+		...cloudflareConfig.cloudflare,
+		useWorkerdCondition: false,
+	},
+};
