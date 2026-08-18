@@ -7,7 +7,7 @@ export function isDatabaseUnavailableError(error: unknown): boolean {
       ? String((error as { cause?: unknown }).cause ?? "")
       : "";
 
-  return /ENOTFOUND|ECONNREFUSED|EAI_AGAIN|timeout|database.*required|connection.*failed/i.test(
+  return /ENOTFOUND|ECONNREFUSED|EAI_AGAIN|timeout|database.*required|connection.*failed|SASL|password must be a string|authentication failed/i.test(
     `${message} ${cause}`
   );
 }
